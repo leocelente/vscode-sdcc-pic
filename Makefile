@@ -8,9 +8,9 @@ LLFLAGS=-r -w -m
 
 # paths
 SDCC_HOME=/usr/local/share/sdcc
-SDCCLIB=/usr/local/share/sdcc/lib/pic16/libsdcc.lib
-PICLIB=/usr/local/share/sdcc/non-free/lib/pic16/libdev18f4550.lib
-INCLUDE_DIR=/usr/local/share/sdcc/include/pic16/
+SDCCLIB=${SDCC_HOME}/lib/pic16/libsdcc.lib
+PICLIB=${SDCC_HOME}/non-free/lib/pic16/libdev18f4550.lib
+INCLUDE_DIR=${SDCC_HOME}/include/pic16/
 
 # project
 PROJECT=myproject
