@@ -26,7 +26,7 @@ move: ${PROJECT}.hex
 	mv build/$< build/hex/
 
 ${PROJECT}.hex: ${OBJS}
-	${LL} ${LLFLAGS} $< -o $@ ${SDCCLIB} ${PICLIB}
+	${LL} ${LLFLAGS} $^ -o $@ ${SDCCLIB} ${PICLIB}
 
 %.o: %.c
 	${CC} ${CCFLAGS} -c $< -o $@
