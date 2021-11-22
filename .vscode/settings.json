@@ -5,7 +5,6 @@
     "C_Cpp.intelliSenseEngine": "Tag Parser",
     "C_Cpp.intelliSenseEngineFallback": "Enabled",
     "files.associations": {
-        "*.sage": "python",
         "pic18fregs.h": "c"
     }
 }
