@@ -1,0 +1,23 @@
+{
+    "compilation": {
+      "compilers_to_recognize": [
+        {
+          "executable": "/usr/local/bin/sdcc",
+          "additional_flags": ["-I/usr/local/share/sdcc/include/pic16/"],
+          "flags_to_remove": ["-mpic16"]
+        }
+      ],
+      "compilers_to_exclude": []
+    },
+    "output": {
+      "content": {
+        "include_only_existing_source": true,
+        "paths_to_include": [],
+        "paths_to_exclude": []
+      },
+      "format": {
+        "command_as_array": true,
+        "drop_output_field": false
+      }
+    }
+  }
