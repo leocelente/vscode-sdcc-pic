@@ -1,36 +1,52 @@
 # programs
+# 	Compiler
 CC=sdcc
-LL=gplink
 
 # flags
-CCFLAGS=-mpic16 -p18f4550 --debug --std-sdcc2x --use-non-free
-LLFLAGS=-r -w -m
+CCFLAGS=-mpic16\
+		 -p18f4550\
+		 --use-non-free \
+		 --debug \
+		 --std-sdcc2x \
+		#  --obanksel=1 \
+		#  --optimize-df \
+		#  --optimize-cmp
+
 
 # paths
+# 	root path of compiler
 SDCC_HOME=/usr/local/share/sdcc
-SDCCLIB=${SDCC_HOME}/lib/pic16/libsdcc.lib
-PICLIB=${SDCC_HOME}/non-free/lib/pic16/libdev18f4550.lib
 INCLUDE_DIR=${SDCC_HOME}/include/pic16/
+LIBS= libsdcc.lib \
+		libc18f.lib \
+		libdev18f4550.lib
+STDLIBPATH=${SDCC_HOME}/lib/pic16/
+DEVLIBPATH=${SDCC_HOME}/non-free/lib/pic16/
 
 # project
-PROJECT=myproject
+PROJECT= myproject
 
 # files
-SOURCES=main.c
-OBJS=$(SOURCES:.c=.o)
-OUTPUT_FILES=*.cod *.lst *.hex *.asm *.o *.adb *.map
+SOURCES= main.c
 
+OBJS=$(SOURCES:.c=.o)
+OUTPUT_FILES=*.cod *.lst *.hex *.asm *.o *.adb
+
+# move all auxiliary files to build folder
 move: ${PROJECT}.hex
 	mkdir -p build/hex
-	mv ${OUTPUT_FILES} build/
-	mv build/$< build/hex/
+	mv -f ${OUTPUT_FILES} build/
+	mv -f build/$< build/hex/
 
+# Link project and build binary output
 ${PROJECT}.hex: ${OBJS}
-	${LL} ${LLFLAGS} $^ -o $@ ${SDCCLIB} ${PICLIB}
+	${CC} $^ -o $@  ${LIBS} -L ${STDLIBPATH} -L ${DEVLIBPATH} ${CCFLAGS}
 
+# Compile .c files
 %.o: %.c
-	${CC} ${CCFLAGS} -c $< -o $@
+	${CC}  -c $< -o $@ ${CCFLAGS} -I${INCLUDE_DIR}
 
+# remove build folder and any leftover auxiliary files (in case of build fail)
 clean:
-	rm -rf build/
+	rm -rf build/ ${OUTPUT_FILES}
 
